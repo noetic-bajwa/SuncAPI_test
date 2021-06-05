@@ -1,0 +1,36 @@
+<!-- <div *ngFor="let item of data">
+    {{item.userId}}
+</div> -->
+
+<div class="container">
+<div class="table-responsive">
+      
+  
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Body</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of returnedArray">
+          <td>{{item.userId}}</td>
+          <td>{{item.id}}</td>
+          <td>{{item.title}}</td>
+          <td>{{item.body}}</td>
+          <td>
+              <button class="btn btn-outline-primary">Edit</button>
+          </td>
+          
+        </tr>
+        
+        
+      </tbody>
+    </table>
+    <pagination [totalItems]="data.length" (pageChanged)="pageChanged($event)"></pagination>
+  </div>
+</div>
