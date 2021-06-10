@@ -19,6 +19,10 @@ export class DataService {
     let url="https://gamenow.noeticworld.com/api/stats/?page="+page;
     return this.http.get(url);
     }
+    
+    getDataRange(startDate:any,endDate:any){
 
-
+      let url="https://gamenow.noeticworld.com/api/stats/?fromDate="+startDate+"&toDate="+endDate;
+      return this.http.get(url);
+      }
 }
