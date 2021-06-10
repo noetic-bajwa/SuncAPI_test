@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+
 
 @Component({
   selector: 'app-table',
@@ -9,7 +9,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 })
 export class TableComponent implements OnInit {
   data:any={};
-  returnedArray: any=[];
+  
   
   constructor(private dataService:DataService) { }
 
@@ -17,7 +17,7 @@ export class TableComponent implements OnInit {
   
     this.dataService.getData().subscribe(data=>{
        this.data=data;
-       this.returnedArray = this.data.slice(0, 10);
+       console.log(data);
        
       },
       err=>{
@@ -28,10 +28,6 @@ export class TableComponent implements OnInit {
        
        
   }
-  pageChanged(event: PageChangedEvent): void {
-    const startItem = (event.page - 1) * event.itemsPerPage;
-    const endItem = event.page * event.itemsPerPage;
-    this.returnedArray = this.data.slice(startItem, endItem);
-  }
+  
 
 }

@@ -15,7 +15,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getData(){
-    let url="https://jsonplaceholder.typicode.com/posts";
+    let url="https://gamenow.noeticworld.com/api/stats/";
     return this.http.get(url,httpOptions);
     }
 
