@@ -17,7 +17,8 @@ export class TableComponent implements OnInit {
   
     this.dataService.getData().subscribe(data=>{
        this.data=data;
-       console.log(data);
+       console.log(this.data.stats)
+       
        
       },
       err=>{

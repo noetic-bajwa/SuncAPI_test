@@ -16,7 +16,7 @@ export class DataService {
 
   getData(){
     let url="https://gamenow.noeticworld.com/api/stats/";
-    return this.http.get(url,httpOptions);
+    return this.http.get(url);
     }
 
 
