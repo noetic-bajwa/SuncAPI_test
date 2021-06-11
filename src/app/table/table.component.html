@@ -16,8 +16,8 @@
            placeholder="To"
            class="form-control"
            bsDatepicker
-           [(ngModel)]="EndingDate"
            [maxDate]="maxDate"
+           [(ngModel)]="EndingDate"
            [bsConfig]="{containerClass:'theme-default',showTodayButton: true, todayPosition: 'center'}"
            [bsConfig]="{ isAnimated: true }">
   </div>
@@ -78,13 +78,14 @@
           
         </tr>
         
-        
+       
       </tbody>
     </table>
     <div class="row">
       <div class="col-xs-12 col-12">
-        <pagination class="my-pagination" [totalItems]="data.totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+        <pagination class="my-pagination" [totalItems]="data.totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event,StartDate.value,EndDate.value)"></pagination>
       </div>
+      
     </div>
   </div>
 </div>

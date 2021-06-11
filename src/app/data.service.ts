@@ -14,9 +14,9 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  getData(page:any){
+  getData(page:any,startDate:any,endDate:any){
 
-    let url="https://gamenow.noeticworld.com/api/stats/?page="+page;
+    let url="https://gamenow.noeticworld.com/api/stats/?page="+page+"&fromDate="+startDate+"&toDate="+endDate;
     return this.http.get(url);
     }
     

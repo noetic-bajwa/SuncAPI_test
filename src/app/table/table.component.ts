@@ -42,9 +42,9 @@ export class TableComponent implements OnInit {
    
 
   ngOnInit(): void {
-    this.dataService.getData(this.page-1).subscribe(data=>{
+    this.dataService.getData(0,'','').subscribe(data=>{
        this.data=data;
-       this.currentPage = this.data['currentPage'];
+      //  this.currentPage = this.data['currentPage'];
       //  this.page = this.data['totalPages']
        console.log(this.data)
        
@@ -56,10 +56,26 @@ export class TableComponent implements OnInit {
          
   }
 
-  pageChanged(event: PageChangedEvent): void {
+  pageChanged(event: PageChangedEvent,startDate:any,endDate:any): void {
+    console.log(startDate);
+    console.log(endDate);
     this.page = event.page;
-    this.dataService.getData(this.page-1).subscribe(data=>{
+    
+      startDate=this.datePipe.transform(startDate,'yyyyMMdd');
+      endDate=this.datePipe.transform(endDate,'yyyyMMdd');
+    if(startDate == null){
+      startDate = ''
+    }
+    if(endDate == null){
+      endDate = ''
+    }
+    console.log(startDate);
+    console.log(endDate);
+    
+    this.dataService.getData(this.page-1,startDate,endDate).subscribe(data=>{
+      
       this.data=data;
+      console.log(this.data)
      },
      err=>{
       
@@ -67,11 +83,14 @@ export class TableComponent implements OnInit {
   }
 
   onClickSearch(startDate:any,endDate:any){
+    this.currentPage = 0;
     startDate=this.datePipe.transform(startDate,'yyyyMMdd');
+    console.log(startDate);
     endDate=this.datePipe.transform(endDate,'yyyyMMdd');
-    this.dataService.getDataRange(startDate,endDate).subscribe(data=>{
+    console.log(endDate);
+    this.dataService.getData(0,startDate,endDate).subscribe(data=>{
       this.data=data;
-      
+      console.log(this.data)
      },
      err=>{
       
@@ -82,7 +101,7 @@ export class TableComponent implements OnInit {
   onClickReset(StartDate:any,EndDate:any){
     this.StartingDate='';
     this.EndingDate='';
-    this.dataService.getData('0').subscribe(data=>{
+    this.dataService.getData(0,this.StartingDate,this.EndingDate).subscribe(data=>{
       this.data=data;
       this.currentPage = this.data['currentPage'];
      //  this.page = this.data['totalPages']
@@ -93,6 +112,7 @@ export class TableComponent implements OnInit {
      err=>{
       
      })
+    
     
   }
 
