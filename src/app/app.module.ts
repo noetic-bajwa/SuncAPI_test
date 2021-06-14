@@ -10,11 +10,14 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
+import { SingleRecordComponent } from './table/single-record/single-record.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TableComponent
+    TableComponent,
+    SingleRecordComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,8 @@ import { DatePipe } from '@angular/common';
     FormsModule,
     PaginationModule.forRoot(),
     BrowserAnimationsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    ToastrModule.forRoot()
 
   ],
   providers: [DataService,DatePipe],

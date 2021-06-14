@@ -1,6 +1,7 @@
 import { Component, OnInit , HostListener , ViewChild } from '@angular/core';
 import { DataService } from '../data.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import {Router} from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { BsDatepickerDirective } from 'ngx-bootstrap/datepicker';
 
@@ -22,7 +23,7 @@ export class TableComponent implements OnInit {
      
      
    }
-
+   
   currentPage:any;
   page:any=1;
   data:any={};
@@ -36,7 +37,7 @@ export class TableComponent implements OnInit {
   
   
   
-  constructor(private dataService:DataService, private datePipe: DatePipe) {
+  constructor(private dataService:DataService, private datePipe: DatePipe,private router: Router) {
     
    }
    
@@ -118,11 +119,33 @@ export class TableComponent implements OnInit {
 
   onClickLast7Days(){
     this.StartingDate=this.datePipe.transform(this.sDate,'MM/dd/yyyy');
+    let Formated_StartingDate = this.datePipe.transform(this.sDate,'yyyyMMdd');
     this.EndingDate=this.datePipe.transform(this.eDate,'MM/dd/yyyy');
+    let Formated_EndingDate = this.datePipe.transform(this.eDate, 'yyyyMMdd')
+    this.dataService.getData(0,Formated_StartingDate ,Formated_EndingDate).subscribe(data=>{
+      this.data=data;
+      this.currentPage = this.data['currentPage'];
+      console.log(this.data)
+      
+      
+     },
+     err=>{
+      
+     })
+    
   }
 
+  onClickEdit(rID:any){
+    // alert(rID);
+    this.dataService.recordID.next(rID);
+    this.router.navigateByUrl('Single')
 
 
+  }
+
+  compare(num1:any,num2:any){
+    return (parseInt(num1) > parseInt(num2))
+  }
 
   
 

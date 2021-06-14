@@ -1,37 +1,59 @@
-<div class="row p-5 mt-5 justify-content-center">
-  <div class="col-xs-12 col-12 col-md-4 form-group">
-    <input #StartDate
-           type="text"
-           placeholder="From"
-           class="form-control"
-           bsDatepicker
-           [(ngModel)]="StartingDate"
-           [maxDate]="maxDate"
-           [bsConfig]="{containerClass:'theme-default',showClearButton: true, clearPosition: 'center'}"
-           [bsConfig]="{ isAnimated: true }">
-  </div>
-  <div class="col-xs-12 col-12 col-md-4 form-group">
-    <input #EndDate
-           type="text"
-           placeholder="To"
-           class="form-control"
-           bsDatepicker
-           [maxDate]="maxDate"
-           [(ngModel)]="EndingDate"
-           [bsConfig]="{containerClass:'theme-default',showTodayButton: true, todayPosition: 'center'}"
-           [bsConfig]="{ isAnimated: true }">
-  </div>
-  <div class="col-xs-12 col-12 col-md-3 form-group">
-    <button class="btn btn-outline-secondary mr-2" (click)="onClickSearch(StartDate.value,EndDate.value)">Search</button>
-    <button class="btn btn-secondary mr-2" (click)="onClickLast7Days()">Last 7 Days</button>
-    <button class="btn btn-secondary" (click)="onClickReset(StartDate.value,EndDate.value)">Reset</button>
-  </div>
-  
-  
-</div>
+
 
 
 <div class="container-fluid">
+  <div class="row pl-5 pt-2">
+      
+      <div class="col-12">
+      
+      <div style="height: 10px;width: 10px;background-color: orange; display: inline-block;margin-right: 5px;"></div>
+      <div style="display: inline-block;"><small>Total Daily Active Users > Unique Players</small></div>
+      
+      </div>
+
+      <div class="col-12">
+
+      <div style="height: 10px;width: 10px;background-color: pink; display: inline-block;margin-right: 5px;"></div>
+      <div style="display: inline-block;"><small>Total Monthly Active Users > Unique Paid Base</small></div>
+
+      </div>
+     
+    
+
+  </div>
+  <div class="row p-5 mt-0 justify-content-center">
+    <div class="col-xs-12 col-12 col-md-4 form-group">
+      <input #StartDate
+             type="text"
+             placeholder="From"
+             class="form-control"
+             bsDatepicker
+             [(ngModel)]="StartingDate"
+             [maxDate]="maxDate"
+             [bsConfig]="{containerClass:'theme-default',showClearButton: true, clearPosition: 'center'}"
+             [bsConfig]="{ isAnimated: true }">
+    </div>
+    <div class="col-xs-12 col-12 col-md-4 form-group">
+      <input #EndDate
+             type="text"
+             placeholder="To"
+             class="form-control"
+             bsDatepicker
+             [maxDate]="maxDate"
+             [(ngModel)]="EndingDate"
+             [bsConfig]="{containerClass:'theme-default',showTodayButton: true, todayPosition: 'center'}"
+             [bsConfig]="{ isAnimated: true }">
+    </div>
+    <div class="col-xs-12 col-12 col-md-1 text-center form-group">
+      <button class="btn btn-outline-secondary mr-2" (click)="onClickSearch(StartDate.value,EndDate.value)">Search</button>
+    </div>
+    <div class="col-xs-12 col-12 col-xl-3 text-center form-group">
+      <button class="btn btn-secondary mr-2" (click)="onClickLast7Days()">Last 7 Days</button>
+      <button class="btn btn-secondary" (click)="onClickReset(StartDate.value,EndDate.value)">Reset</button>
+    </div>
+    
+    
+  </div>
 <div class="table-responsive">
       
     
@@ -39,17 +61,17 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>C&nbsp;Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th>Created&nbsp;Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th>Total&nbsp;Monthly&nbsp;Active&nbsp;Users</th>
           <th>Unique&nbsp;Paid&nbsp;Base</th>
           <th>Total&nbsp;Daily&nbsp;Active&nbsp;Users</th>
+          <th>Unique&nbsp;Players</th>
           <th>Total&nbsp;Weekly&nbsp;Active&nbsp;Users</th>
-          <th>Total&nbsp;Monthly&nbsp;Active&nbsp;Users</th>
-          <th>Total&nbsp;EngageBase</th>
+          <th>Total&nbsp;Engage&nbsp;Base</th>
           <th>Engagement&nbsp;Rate</th>
           <th>Engage&nbsp;Time</th>
           <th>Total&nbsp;Game&nbsp;Played</th>
           <th>Game&nbsp;Play&nbsp;Rate</th>
-          <th>Unique&nbsp;Players</th>
           <th>Total&nbsp;Tournaments</th>
           <th>Action</th>
 
@@ -58,37 +80,40 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of data.stats">
-          <td>{{item.id}}</td>
+        <tr *ngFor="let item of data.stats" (click)="onClickEdit(recordID.innerHTML)">
+          <td #recordID >{{item.id}}</td>
           <td>{{item.cDate | date}}</td>
-          <td [ngStyle]="{'background-color': (item.totalMonthlyActiveUsers > item.uniquePaidBase) ? '#FFBABA' : ''}">{{item.uniquePaidBase}}</td>
-          <td [ngStyle]="{'background-color': (item.totalDailyActiveUsers > item.uniquePlayers) ? '#FFBABA' : ''}">{{item.totalDailyActiveUsers}}</td>
+          <td [ngStyle]="{'background-color': (compare(item.totalMonthlyActiveUsers,item.uniquePaidBase)) ? 'pink' : ''}">{{item.totalMonthlyActiveUsers}}</td>
+          <td [ngStyle]="{'background-color': (compare(item.totalMonthlyActiveUsers,item.uniquePaidBase)) ? 'pink' : ''}">{{item.uniquePaidBase}}</td>
+          <td [ngStyle]="{'background-color': (compare(item.totalDailyActiveUsers,item.uniquePlayers)) ? 'orange' : ''}">{{item.totalDailyActiveUsers}}</td>
+          <td [ngStyle]="{'background-color': (compare(item.totalDailyActiveUsers,item.uniquePlayers)) ? 'orange' : ''}">{{item.uniquePlayers}}</td>
           <td>{{item.totalWeeklyActiveUsers}}</td>
-          <td [ngStyle]="{'background-color': (item.totalMonthlyActiveUsers > item.uniquePaidBase) ? '#FFBABA' : ''}">{{item.totalMonthlyActiveUsers}}</td>
           <td>{{item.totalEngageBase}}</td>
           <td>{{item.engagementRate}}</td>
           <td>{{item.engageTime}}</td>
           <td>{{item.totalGamePlayed}}</td>
           <td>{{item.gamePlayRate}}</td>
-          <td [ngStyle]="{'background-color': (item.totalDailyActiveUsers > item.uniquePlayers) ? '#FFBABA' : ''}">{{item.uniquePlayers}}</td>
+          
           <td>{{item.totalTournaments}}</td>
 
           
-          <td><button class="btn btn-outline-secondary">Edit</button></td>
+          <td><button (click)="onClickEdit(recordID.innerHTML)" class="btn btn-outline-secondary">Edit</button></td>
           
         </tr>
         
        
       </tbody>
     </table>
-    <div class="row">
-      <div class="col-xs-12 col-12">
-        <pagination class="my-pagination" [totalItems]="data.totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event,StartDate.value,EndDate.value)"></pagination>
-      </div>
-      
+    
+  </div>
+  <div class="row mt-3">
+    <div class="col-xs-12 col-12">
+      <pagination class="my-pagination" [totalItems]="data.totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event,StartDate.value,EndDate.value)"></pagination>
     </div>
+    
   </div>
 </div>
+
 
  
 
