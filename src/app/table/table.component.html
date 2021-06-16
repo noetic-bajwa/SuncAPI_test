@@ -62,17 +62,17 @@
         <tr>
           <th>ID</th>
           <th>Created&nbsp;Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-          <th>Total&nbsp;Monthly&nbsp;Active&nbsp;Users</th>
           <th>Unique&nbsp;Paid&nbsp;Base</th>
-          <th>Total&nbsp;Daily&nbsp;Active&nbsp;Users</th>
-          <th>Unique&nbsp;Players</th>
-          <th>Total&nbsp;Weekly&nbsp;Active&nbsp;Users</th>
           <th>Total&nbsp;Engage&nbsp;Base</th>
           <th>Engagement&nbsp;Rate</th>
           <th>Engage&nbsp;Time</th>
           <th>Total&nbsp;Game&nbsp;Played</th>
           <th>Game&nbsp;Play&nbsp;Rate</th>
+          <th>Unique&nbsp;Players</th>
           <th>Total&nbsp;Tournaments</th>
+          <th>Total&nbsp;Daily&nbsp;Active&nbsp;Users</th>
+          <th>Total&nbsp;Monthly&nbsp;Active&nbsp;Users</th>
+          <th>Total&nbsp;Weekly&nbsp;Active&nbsp;Users</th>
           <th>Action</th>
 
 
@@ -83,20 +83,17 @@
         <tr *ngFor="let item of data.stats" (click)="onClickEdit(recordID.innerHTML)">
           <td #recordID >{{item.id}}</td>
           <td>{{item.cDate | date}}</td>
-          <td [ngStyle]="{'background-color': (compare(item.totalMonthlyActiveUsers,item.uniquePaidBase)) ? 'pink' : ''}">{{item.totalMonthlyActiveUsers}}</td>
           <td [ngStyle]="{'background-color': (compare(item.totalMonthlyActiveUsers,item.uniquePaidBase)) ? 'pink' : ''}">{{item.uniquePaidBase}}</td>
-          <td [ngStyle]="{'background-color': (compare(item.totalDailyActiveUsers,item.uniquePlayers)) ? 'orange' : ''}">{{item.totalDailyActiveUsers}}</td>
-          <td [ngStyle]="{'background-color': (compare(item.totalDailyActiveUsers,item.uniquePlayers)) ? 'orange' : ''}">{{item.uniquePlayers}}</td>
-          <td>{{item.totalWeeklyActiveUsers}}</td>
           <td>{{item.totalEngageBase}}</td>
           <td>{{item.engagementRate}}</td>
           <td>{{item.engageTime}}</td>
           <td>{{item.totalGamePlayed}}</td>
           <td>{{item.gamePlayRate}}</td>
-          
+          <td [ngStyle]="{'background-color': (compare(item.totalDailyActiveUsers,item.uniquePlayers)) ? 'orange' : ''}">{{item.uniquePlayers}}</td>
           <td>{{item.totalTournaments}}</td>
-
-          
+          <td [ngStyle]="{'background-color': (compare(item.totalDailyActiveUsers,item.uniquePlayers)) ? 'orange' : ''}">{{item.totalDailyActiveUsers}}</td>
+          <td [ngStyle]="{'background-color': (compare(item.totalMonthlyActiveUsers,item.uniquePaidBase)) ? 'pink' : ''}">{{item.totalMonthlyActiveUsers}}</td>
+          <td>{{item.totalWeeklyActiveUsers}}</td>        
           <td><button (click)="onClickEdit(recordID.innerHTML)" class="btn btn-outline-secondary">Edit</button></td>
           
         </tr>
