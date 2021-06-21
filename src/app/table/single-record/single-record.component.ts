@@ -77,7 +77,7 @@ export class SingleRecordComponent implements OnInit , DoCheck {
   }
 
   calculateTotalGamePlayed(num1:any,num2:any){
-    return (parseInt(num1) * parseInt(num2))
+    return (parseInt(num1) * parseFloat(num2))
   }
 
   calculateTotalEngageBase(num:any){
